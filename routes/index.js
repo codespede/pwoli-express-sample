@@ -21,8 +21,8 @@ router.get('/', async function (req, res, next) {
   const grid = new pwoli.GridView({ dataProvider, filterModel, columns: ['id', 'title'] });
   const renderedGrid = await grid.render()
 
-  res.render('index', { title: 'Express', renderedGrid }) //Express's native way to render the view without Pwoli's custom headers
-  pwoli.Application.respond(res, (res) => res.render('index', { title: 'Express', renderedGrid })); //Recommended: Put the same above line inside a callback in this line to respond with Pwoli's custom headers
+  //res.render('index', { title: 'Pwoli Express Sample App', renderedGrid }) //Express's native way to render the view without Pwoli's custom headers
+  pwoli.Application.respond(res, (res) => res.render('index', { title: 'Pwoli Express Sample App', renderedGrid })); //Recommended: Put the same above line inside a callback in this line to respond with Pwoli's custom headers
 });
 
 module.exports = router;
