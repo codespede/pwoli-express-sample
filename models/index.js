@@ -7,7 +7,7 @@ const config = {
     "dialect": "mysql"
 };
 const { Sequelize } = pkg;
-sequelize = new Sequelize(
+let sequelize = new Sequelize(
     config.database,
     config.username,
     config.password,
