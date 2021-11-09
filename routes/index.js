@@ -3,7 +3,6 @@ var expressLayouts = require('express-ejs-layouts');
 const pwoli = require('pwoli');
 const app = express();
 pwoli.Application.setViewPath('views1')
-console.log('pwoli-app', pwoli.Application);
 const Company = require('../models/Company');
 var router = express.Router();
 router.use('/static', express.static('static'));
