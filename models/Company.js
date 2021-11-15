@@ -3,8 +3,32 @@ const pwoli = require('pwoli');
 const sequelize = require('.');
 const Model = pwoli.Model;
 const DataTypes = pkg.DataTypes;
+const Event = require("./Event");
 class Company extends Model{
-    
+    static associate() {
+        Company.hasOne(Event, { as: 'event', foreignKey: 'id', sourceKey: 'eventId' });
+    }
+  
+    get getter() {
+        return (async () => {
+            return (await Event.findByPk(this.eventId)).title;
+        })();
+    }
+  
+    sampleFunc() {
+        return this.id + Math.random();
+    }
+  
+    search(params) {
+        let provider = super.search.call(this, params); // calling the default implementation of search
+        for (const param in params[this.getFormName()]) {
+            if (['event.title'].includes(param)) {
+                provider.query.where[`$${param}$`] = { [pkg.Op.like]: `%${params[this.getFormName()]['event.title']}%` };
+                this[param] = params[this.getFormName()][param];
+            }
+        }
+        return provider;
+    }
 }
 
 const attributes = {
@@ -69,6 +93,9 @@ const attributes = {
     autoIncrement: false,
     comment: null,
     field: "email",
+    validate: {
+      isEmail: true,
+    },
   },
   website: {
     type: DataTypes.TEXT,
@@ -78,6 +105,19 @@ const attributes = {
     autoIncrement: false,
     comment: null,
     field: "website",
+  },
+  eventId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: null,
+      primaryKey: false,
+      autoIncrement: false,
+      comment: null,
+      field: 'eventId',
+      references: {
+          key: 'id',
+          model: 'Event',
+      },
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -109,3 +149,4 @@ const options = {
 console.log('company', Model)
 Company.init(attributes, options);
 module.exports = Company;
+Company.associate();

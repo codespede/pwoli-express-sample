@@ -17,6 +17,7 @@ app.set('port', port);
 app.set('view engine', 'ejs');
 app.set('layout', 'layouts/main');
 app.locals.pwoliView = pwoli.Application.view;
+app.locals.title = "Pwoli - Express.js Sample Application";
 /**
  * Create HTTP server.
  */
