@@ -1,6 +1,6 @@
 # Pwoli with Express.js Sample Application
 
-A boilerplate Express.js app which uses Pwoli to show users how it works
+A sample Express.js app which uses Pwoli to show users how it works
 
 ## Try it out
 

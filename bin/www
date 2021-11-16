@@ -12,7 +12,7 @@ const pwoli = require('pwoli');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3500');
+var port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 app.set('view engine', 'ejs');
 app.set('layout', 'layouts/main');
