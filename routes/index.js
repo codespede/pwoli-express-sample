@@ -73,7 +73,7 @@ const postHandler = async function (req, res, next) { // if the route is "items/
     if (req.method === 'POST') {
         const post = await pwoli.DataHelper.parseQueryParams(req.body);
         //console.log('post', await pwoli.DataHelper.parseQueryParams((post)), post);
-    if (req.headers['x-requested-with'] === 'XMLHttpRequest' && company.load(post)) {
+    if (req.headers['x-requested-with'] === 'XMLHttpRequest' && company.load(post)) { //If it's an ajax validation request sent by ActiveForm
         res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify(await ActiveForm.validate(company)));
         res.end();
@@ -110,6 +110,31 @@ router.all('/items/update/:id/', postHandler);
 
 router.get('/items/delete/:id', async function (req, res, next) {
     await Company.destroy({ where: { id: req.params.id } });
+});
+
+router.get('/items/api', async function (req, res, next) {
+    const filterModel = new Company();
+    const dataProvider = filterModel.search(pwoli.DataHelper.parseUrl(req.url));
+    dataProvider.query.include = [{ model: Event, as: 'event' }];
+    let sort = dataProvider.getSort();
+    //console.log('dp-sort', sort)
+    sort.attributes['event.title'] = {
+        asc: ['event', 'title', 'asc'],
+        desc: ['event', 'title', 'desc'],
+    };
+    dataProvider.setSort(sort);
+    //If you want to add custom fields to the JSON response for each model, just do like below:
+    const models = await dataProvider.getModels();
+    for (let model of models) {
+        model.setAttributeValues({
+            myGetter: await model.getter, //getter is a custom `getter` written in Company model.
+            // model.dataValues.anotherField = anotherValue;
+        });
+        console.log('api-model', model);
+    }
+    await dataProvider.setModels(models);
+
+    pwoli.Application.respond(res, dataProvider);
 });
 
 module.exports = router;
