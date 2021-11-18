@@ -6,7 +6,7 @@ const DataTypes = pkg.DataTypes;
 const Event = require("./Event");
 class Company extends Model{
     static associate() {
-        Company.hasOne(Event, { as: 'event', foreignKey: 'id', sourceKey: 'eventId' });
+        Company.hasOne(Event, { as: 'event', foreignKey: 'id', sourceKey: 'eventId', constraints: false });
     }
   
     get getter() {
@@ -35,7 +35,6 @@ const attributes = {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: null,
     primaryKey: true,
     autoIncrement: true,
     comment: null,
@@ -43,7 +42,7 @@ const attributes = {
   },
   title: {
     type: DataTypes.STRING(255),
-    allowNull: false,
+    allowNull: true,
     defaultValue: null,
     primaryKey: false,
     autoIncrement: false,
@@ -143,6 +142,14 @@ const { Sequelize } = pkg;
 const options = {
   tableName: "Company",
   comment: "ss",
+  indexes: [
+    {
+      name: "company-event",
+      unique: false,
+      // type: "BTREE",
+      fields: ["eventId"],
+    },
+  ],
   sequelize,
   hooks: {}
 };

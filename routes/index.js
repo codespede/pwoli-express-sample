@@ -3,6 +3,7 @@ var expressLayouts = require('express-ejs-layouts');
 const queryString = require('querystring');
 const pwoli = require('pwoli');
 const app = express();
+const sequelize = require("../models")
 pwoli.Application.setViewPath('views')
 pwoli.Application.view.setLayout('/layouts/main.ejs');
 const Company = require('../models/Company');
@@ -15,7 +16,7 @@ router.use((req, res, next) => { //middleware to assign the current request to P
   pwoli.Application.request = req;
   next();
 })
-
+sequelize.sync()
 /* GET home page. */
 router.get('/items/list', async function (req, res, next) {
   const filterModel = new Company();

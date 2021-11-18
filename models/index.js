@@ -1,8 +1,9 @@
 const pkg = require('sequelize');
+const jsonConfig = require("../config/config.json")['development'];
 const config = {
-    "username": 'root2',
-    "password": 'root',
-    "database": 've',
+    "username": jsonConfig.username,
+    "password": jsonConfig.password,
+    "database": jsonConfig.database,
     "host": '127.0.0.1',
     "dialect": "mysql"
 };
@@ -13,5 +14,4 @@ let sequelize = new Sequelize(
     config.password,
     config
 );
-sequelize.sync()
 module.exports = sequelize;
