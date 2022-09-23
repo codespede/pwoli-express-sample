@@ -5,7 +5,7 @@ const config = {
     "password": jsonConfig.password,
     "database": jsonConfig.database,
     "host": '127.0.0.1',
-    "dialect": "mysql"
+    "dialect": jsonConfig.dialect
 };
 const { Sequelize } = pkg;
 let sequelize = new Sequelize(

@@ -140,7 +140,7 @@ const attributes = {
 
 const { Sequelize } = pkg;
 const options = {
-  tableName: "Company",
+  tableName: "company",
   comment: "ss",
   indexes: [
     {

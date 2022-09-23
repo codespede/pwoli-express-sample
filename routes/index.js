@@ -5,15 +5,17 @@ const pwoli = require('pwoli');
 const app = express();
 const sequelize = require("../models")
 pwoli.Application.setViewPath('views')
-pwoli.Application.view.setLayout('/layouts/main.ejs');
+
 const Company = require('../models/Company');
 const Event = require('../models/Event');
 var router = express.Router();
 router.use('/static', express.static('static'));
+app.use('/', express.static('public'));
 router.use(expressLayouts);
 
 router.use((req, res, next) => { //middleware to assign the current request to Pwoli.
   pwoli.Application.request = req;
+  pwoli.Application.view.setLayout('/layouts/main.ejs');
   next();
 })
 sequelize.sync()

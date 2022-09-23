@@ -16,7 +16,7 @@ module.exports = {
       events.push({
         title: `Event - ${i + 1}`,
       })
-    let insertedEvents = await queryInterface.bulkInsert('Event', events, { returning: ['id'] });
+    let insertedEvents = await queryInterface.bulkInsert('event', events, { returning: ['id'] });
     const dbEvents = await queryInterface.sequelize.query(
       `SELECT id from Event;`
     );
@@ -30,7 +30,7 @@ module.exports = {
         eventId: eventId !== undefined ? eventId : 1
       })
     }
-    let insertedCompanies = await queryInterface.bulkInsert('Company', companies, {});
+    let insertedCompanies = await queryInterface.bulkInsert('company', companies, {});
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -40,7 +40,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Event', null, {});
-    await queryInterface.bulkDelete('Company', null, {});
+    await queryInterface.bulkDelete('event', null, {});
+    await queryInterface.bulkDelete('company', null, {});
   }
 };
