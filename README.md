@@ -16,7 +16,7 @@ npm install
 - Initialize the DB with tables
 
 ```
-node --experimental-json-modules dbinit.js
+node --experimental-json-modules dbinit.mjs
 ```
 - For adding some seed data(dummy data) to the tables, please run:
 
