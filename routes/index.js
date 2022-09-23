@@ -18,7 +18,7 @@ router.use((req, res, next) => { //middleware to assign the current request to P
   pwoli.Application.view.setLayout('/layouts/main.ejs');
   next();
 })
-sequelize.sync()
+//sequelize.sync()
 /* GET home page. */
 router.get('/items/list', async function (req, res, next) {
   const filterModel = new Company();

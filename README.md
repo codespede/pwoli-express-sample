@@ -13,14 +13,19 @@ npm install
 
 - Provide your DB credentials in the file config/config.json
 
-```
-npm start
-```
+- Initialize the DB with tables
 
-For adding some seed data(dummy data) to the tables, please run:
+```
+node --experimental-json-modules dbinit.js
+```
+- For adding some seed data(dummy data) to the tables, please run:
 
 ```
 sequelize db:seed:all
+```
+- Run the app
+```
+npm start
 ```
 
 Point your browser to http://localhost:4000/items/list and you should see a page with a `GridView` where you can do CRUD operations for the items.
