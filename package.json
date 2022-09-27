@@ -13,6 +13,7 @@
     "express-ejs-layouts": "^2.5.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "pwoli": "^0.9.7-beta"
+    "pg": "^8.8.0",
+    "pwoli": "^1.0.0"
   }
 }
